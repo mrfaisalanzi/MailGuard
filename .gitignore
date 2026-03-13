@@ -1,0 +1,7 @@
+node_modules
+.dist
+/dist
+server/token.json
+server/.env
+.env
+server/.env

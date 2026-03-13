@@ -1,0 +1,5 @@
+{
+  "name": "MailGuard",
+  "description": "Login and threat-scoring inbox demo that ranks emails as safe, suspicious, or dangerous.",
+  "version": "0.1.0"
+}
