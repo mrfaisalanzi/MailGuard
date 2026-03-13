@@ -13,3 +13,7 @@ server/client_secret_*.json
 server/.env
 env/*.env
 server/client_secret_*.json
+.env
+server/.env
+env/*.env
+server/client_secret_*.json
