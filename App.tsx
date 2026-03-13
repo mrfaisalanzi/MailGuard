@@ -37,6 +37,9 @@ const RISK_BANDS: { label: RiskLevel; min: number; max: number; description: str
 ];
 
 export default function App() {
+  const apiBase =
+    (import.meta as { env?: { VITE_API_BASE_URL?: string } }).env?.VITE_API_BASE_URL ?? "";
+  const apiUrl = (path: string) => `${apiBase}${path}`;
   const [connected, setConnected] = useState(false);
   const [accountEmail, setAccountEmail] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -102,7 +105,7 @@ export default function App() {
 
   const refreshStatus = async () => {
     try {
-      const res = await fetch("/api/status");
+      const res = await fetch(apiUrl("/api/status"));
       if (!res.ok) throw new Error("status_failed");
       const data = (await res.json()) as { connected: boolean; email?: string };
       setConnected(data.connected);
@@ -115,7 +118,7 @@ export default function App() {
 
   const loadScanStatus = async (ids: string[]) => {
     if (!ids.length) return;
-    const statusRes = await fetch("/api/scan/status", {
+    const statusRes = await fetch(apiUrl("/api/scan/status"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ids }),
@@ -137,7 +140,7 @@ export default function App() {
     setLoadingMessages(true);
     setError(null);
     try {
-      const res = await fetch("/api/messages");
+      const res = await fetch(apiUrl("/api/messages"));
       if (!res.ok) throw new Error("messages_failed");
       const data = (await res.json()) as { messages: EmailItem[] };
       setEmails(data.messages);
@@ -167,12 +170,12 @@ export default function App() {
   }, [connected, emails, scanHydrated]);
 
   const handleConnect = () => {
-    window.location.href = "/auth/google";
+    window.location.href = apiUrl("/auth/google");
   };
 
   const handleDisconnect = async () => {
     setBusy(true);
-    await fetch("/auth/logout", { method: "POST" });
+    await fetch(apiUrl("/auth/logout"), { method: "POST" });
     setConnected(false);
     setAccountEmail(null);
     setEmails(EMPTY_EMAILS);
@@ -200,7 +203,7 @@ export default function App() {
     }, 350);
 
     try {
-      const res = await fetch(`/api/scan/${id}`, { method: "POST" });
+      const res = await fetch(apiUrl(`/api/scan/${id}`), { method: "POST" });
       const data = (await res.json()) as ScanResult & { error?: string };
       if (!res.ok) throw new Error("scan_failed");
       setScanResults((prev) => ({ ...prev, [id]: data }));
