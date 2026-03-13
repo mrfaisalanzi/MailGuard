@@ -5,3 +5,11 @@ server/token.json
 server/.env
 .env
 server/.env
+.env
+server/.env
+env/*.env
+server/client_secret_*.json
+.env
+server/.env
+env/*.env
+server/client_secret_*.json
