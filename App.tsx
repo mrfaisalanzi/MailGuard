@@ -38,7 +38,8 @@ const RISK_BANDS: { label: RiskLevel; min: number; max: number; description: str
 
 export default function App() {
   const apiBase =
-    (import.meta as { env?: { VITE_API_BASE_URL?: string } }).env?.VITE_API_BASE_URL ?? "";
+    (import.meta as { env?: { VITE_API_BASE_URL?: string } }).env?.VITE_API_BASE_URL ??
+    "https://mailguard-4xoj.onrender.com";
   const apiUrl = (path: string) => `${apiBase}${path}`;
   const [connected, setConnected] = useState(false);
   const [accountEmail, setAccountEmail] = useState<string | null>(null);
