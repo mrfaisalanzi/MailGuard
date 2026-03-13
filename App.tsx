@@ -96,7 +96,8 @@ export default function App() {
     legalIntro: isArabic
       ? "توضح هذه الصفحة كيف نتعامل مع بياناتك وشروط استخدام الخدمة."
       : "This page explains how we handle your data and the terms for using the service.",
-    legalLink: isArabic ? "الخصوصية والشروط" : "Privacy & Terms",
+    legalLink: isArabic ? "سياسة الخصوصية" : "Privacy Policy",
+    termsLink: isArabic ? "شروط الخدمة" : "Terms of Service",
   } as const;
 
   const legalContent = isArabic
@@ -303,9 +304,17 @@ export default function App() {
                 {uiText.continueWithGoogle}
               </button>
             </div>
-            <a className="legal-link" href="#privacy-policy">
-              {uiText.legalLink}
-            </a>
+            <div className="legal-links">
+              <a className="legal-link" href="/privacy.html" target="_blank" rel="noreferrer">
+                {uiText.legalLink}
+              </a>
+              <span className="legal-sep" aria-hidden="true">
+                •
+              </span>
+              <a className="legal-link" href="/terms.html" target="_blank" rel="noreferrer">
+                {uiText.termsLink}
+              </a>
+            </div>
           </div>
         </main>
 
@@ -316,6 +325,14 @@ export default function App() {
               <span>{uiText.legalUpdated}</span>
             </div>
             <p className="legal-intro">{uiText.legalIntro}</p>
+            <div className="legal-external">
+              <a className="legal-link" href="/privacy.html" target="_blank" rel="noreferrer">
+                {uiText.privacyTitle}
+              </a>
+              <a className="legal-link" href="/terms.html" target="_blank" rel="noreferrer">
+                {uiText.termsTitle}
+              </a>
+            </div>
             <div className="legal-grid">
               <section aria-labelledby="privacy-title">
                 <h3 id="privacy-title">{uiText.privacyTitle}</h3>
@@ -506,6 +523,14 @@ export default function App() {
             <span>{uiText.legalUpdated}</span>
           </div>
           <p className="legal-intro">{uiText.legalIntro}</p>
+          <div className="legal-external">
+            <a className="legal-link" href="/privacy.html" target="_blank" rel="noreferrer">
+              {uiText.privacyTitle}
+            </a>
+            <a className="legal-link" href="/terms.html" target="_blank" rel="noreferrer">
+              {uiText.termsTitle}
+            </a>
+          </div>
           <div className="legal-grid">
             <section aria-labelledby="privacy-title-inbox">
               <h3 id="privacy-title-inbox">{uiText.privacyTitle}</h3>
