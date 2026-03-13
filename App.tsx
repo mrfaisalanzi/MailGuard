@@ -89,7 +89,49 @@ export default function App() {
       : "Connect Gmail and click Refresh Gmail to fetch your inbox.",
     links: isArabic ? "روابط" : "links",
     files: isArabic ? "ملفات" : "files",
+    legalTitle: isArabic ? "السياسة والاتفاقية" : "Privacy & Terms",
+    privacyTitle: isArabic ? "سياسة الخصوصية" : "Privacy Policy",
+    termsTitle: isArabic ? "شروط الخدمة" : "Terms of Service",
+    legalUpdated: isArabic ? "آخر تحديث: 13 مارس 2026" : "Last updated: March 13, 2026",
+    legalIntro: isArabic
+      ? "توضح هذه الصفحة كيف نتعامل مع بياناتك وشروط استخدام الخدمة."
+      : "This page explains how we handle your data and the terms for using the service.",
+    legalLink: isArabic ? "الخصوصية والشروط" : "Privacy & Terms",
   } as const;
+
+  const legalContent = isArabic
+    ? {
+        privacy: [
+          "نجمع بيانات أساسية مثل بريدك الإلكتروني ومعرّفات الرسائل وبيانات الميتاداتا وروابط المرفقات التي تسمح لنا بفحص البريد وعرض النتائج.",
+          "نستخدم بياناتك فقط لتقديم الخدمة، وتحسين أداء الفحص، وحماية حسابك.",
+          "لا نبيع بياناتك. قد نشاركها مع مزودي خدمات موثوقين فقط لتشغيل النظام.",
+          "نحتفظ بالبيانات للمدة اللازمة لتقديم الخدمة. يمكنك إلغاء الربط في أي وقت لإيقاف الوصول إلى Gmail.",
+          "يمكنك مراسلتنا لطلب الوصول أو الحذف أو الاستفسارات المتعلقة بالخصوصية.",
+        ],
+        terms: [
+          "باستخدامك للخدمة فإنك توافق على هذه الشروط وعلى سياسة الخصوصية.",
+          "الخدمة تقدم أدوات فحص وتنبيهات للمساعدة في اكتشاف المخاطر، ولا تعتبر ضمانًا مطلقًا للأمان.",
+          "أنت مسؤول عن مراجعة الرسائل والقرارات التي تتخذها بناءً على نتائج الفحص.",
+          "قد نقوم بتحديث الخدمة أو إيقافها مؤقتًا للصيانة دون إشعار مسبق.",
+          "يجوز لنا تحديث هذه الشروط، وسيتم نشر النسخة الأحدث على هذه الصفحة.",
+        ],
+      }
+    : {
+        privacy: [
+          "We process basic data such as your email address, message identifiers, metadata, and link/attachment indicators to scan your inbox and show results.",
+          "We use your data only to provide the service, improve scanning performance, and protect your account.",
+          "We do not sell your data. We may share it with trusted service providers only to operate the system.",
+          "We retain data only as long as needed to deliver the service. You can disconnect at any time to revoke Gmail access.",
+          "Contact us for access, deletion, or privacy-related questions.",
+        ],
+        terms: [
+          "By using the service, you agree to these terms and the privacy policy.",
+          "The service provides scanning tools and alerts to help detect risk; it is not a guarantee of security.",
+          "You are responsible for reviewing messages and decisions based on scan results.",
+          "We may update or temporarily suspend the service for maintenance without notice.",
+          "We may update these terms; the latest version will be posted on this page.",
+        ],
+      };
 
   const filteredEmails = useMemo(() => {
     return emails
@@ -261,8 +303,39 @@ export default function App() {
                 {uiText.continueWithGoogle}
               </button>
             </div>
+            <a className="legal-link" href="#privacy-policy">
+              {uiText.legalLink}
+            </a>
           </div>
         </main>
+
+        <footer className="legal" id="privacy-policy">
+          <div className="legal-card">
+            <div className="legal-head">
+              <h2>{uiText.legalTitle}</h2>
+              <span>{uiText.legalUpdated}</span>
+            </div>
+            <p className="legal-intro">{uiText.legalIntro}</p>
+            <div className="legal-grid">
+              <section aria-labelledby="privacy-title">
+                <h3 id="privacy-title">{uiText.privacyTitle}</h3>
+                <ul>
+                  {legalContent.privacy.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+              <section aria-labelledby="terms-title" id="terms-of-service">
+                <h3 id="terms-title">{uiText.termsTitle}</h3>
+                <ul>
+                  {legalContent.terms.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
@@ -425,6 +498,34 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      <footer className="legal" id="privacy-policy">
+        <div className="legal-card">
+          <div className="legal-head">
+            <h2>{uiText.legalTitle}</h2>
+            <span>{uiText.legalUpdated}</span>
+          </div>
+          <p className="legal-intro">{uiText.legalIntro}</p>
+          <div className="legal-grid">
+            <section aria-labelledby="privacy-title-inbox">
+              <h3 id="privacy-title-inbox">{uiText.privacyTitle}</h3>
+              <ul>
+                {legalContent.privacy.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+            <section aria-labelledby="terms-title-inbox" id="terms-of-service">
+              <h3 id="terms-title-inbox">{uiText.termsTitle}</h3>
+              <ul>
+                {legalContent.terms.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
